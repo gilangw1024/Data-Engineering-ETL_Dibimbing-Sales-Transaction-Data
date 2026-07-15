@@ -6,49 +6,40 @@ Pipeline ini memproses data transaksi e-commerce harian untuk kebutuhan pelapora
 
 ## 2. Extract
 
-* 
-**Sumber**: Data mentah (CSV) yang diletakkan pada direktori lokal `./data`.
+* **Sumber**: Data mentah (CSV) yang diletakkan pada direktori lokal `./data`.
 
 
-* 
-**Format**: File `.csv` yang berisi detail order per transaksi.
+* **Format**: File `.csv` yang berisi detail order per transaksi.
 
 
-* 
-**Volume**: Proses dirancang untuk menangani beban data transaksi harian (incremental).
+* **Volume**: Proses dirancang untuk menangani beban data transaksi harian (incremental).
 
 
 
 ## 3. Transform
 
-* 
-**Langkah 1 (Transform & Clean)**: Pembersihan data mentah, menangani missing values, dan penyeragaman format data.
+* **Langkah 1 (Transform & Clean)**: Pembersihan data mentah, menangani missing values, dan penyeragaman format data.
 
 
-* 
-**Langkah 2 (Validate)**: Melakukan validasi kualitas data untuk memastikan skema dan integritas data sesuai sebelum dimuat ke warehouse.
+* **Langkah 2 (Validate)**: Melakukan validasi kualitas data untuk memastikan skema dan integritas data sesuai sebelum dimuat ke warehouse.
 
 
 
 ## 4. Load
 
-* 
-**Tujuan**: Data Warehouse (Target: BigQuery).
+* **Tujuan**: Data Warehouse (Target: BigQuery).
 
 
-* 
-**Format output**: Tabel terstruktur yang siap digunakan untuk analisis BI dan pelaporan.
+* **Format output**: Tabel terstruktur yang siap digunakan untuk analisis BI dan pelaporan.
 
 
 
 ## 5. Orchestration
 
-* 
-**Tool**: Apache Airflow 2.10.0 (Python 3.11).
+* **Tool**: Apache Airflow 2.10.0 (Python 3.11).
 
 
-* 
-**Schedule**: Dijalankan setiap hari pukul 06:00 pagi (`0 6 * * *`).
+* **Schedule**: Dijalankan setiap hari pukul 06:00 pagi (`0 6 * * *`).
 
 
 * **DAG flow**:
@@ -60,35 +51,16 @@ Pipeline ini memproses data transaksi e-commerce harian untuk kebutuhan pelapora
 
 ## 6. Error Handling
 
-* 
-**Skenario 1 (Kegagalan Task)**: Menggunakan konfigurasi `retries: 3` dengan jeda 5 menit antar percobaan untuk menangani kegagalan sementara (*flaky tasks*).
+* **Skenario 1 (Kegagalan Task)**: Menggunakan konfigurasi `retries: 3` dengan jeda 5 menit antar percobaan untuk menangani kegagalan sementara (*flaky tasks*).
 
 
-* 
-**Skenario 2 (Notifikasi)**: Jika pipeline gagal setelah melewati batas *retry*, sistem akan mengirimkan notifikasi email otomatis ke `alert@company.com`.
+* **Skenario 2 (Notifikasi)**: Jika pipeline gagal setelah melewati batas *retry*, sistem akan mengirimkan notifikasi email otomatis ke `alert@company.com`.
 
 
 
 ## 7. Monitoring
 
-* 
-**Cara tahu pipeline sukses**: Melalui UI Apache Airflow (port 8080) dengan memantau status `Success` (berwarna hijau) pada setiap task di dalam DAG `etl_ecommerce_daily`.
+* **Cara tahu pipeline sukses**: Melalui UI Apache Airflow (port 8080) dengan memantau status `Success` (berwarna hijau) pada setiap task di dalam DAG `etl_ecommerce_daily`.
 
 
 * **Cara tahu data berkualitas**: Melalui fungsi `validate_quality` yang bertindak sebagai *gatekeeper*. Jika validasi gagal, pipeline akan terhenti dan notifikasi akan dikirim untuk mencegah data rusak masuk ke Warehouse.
-
-
-
----
-
-### Catatan untuk Implementasi:
-
-* **Infrastruktur**: Anda menggunakan `SequentialExecutor` dan `SQLite`. Untuk lingkungan produksi yang memiliki beban tinggi, disarankan untuk mengganti ke `CeleryExecutor` atau `KubernetesExecutor` dengan database yang lebih robust seperti PostgreSQL.
-
-
-* 
-**Environment**: Pastikan folder `./dags` dan `./data` ter-mount dengan benar ke dalam container sesuai konfigurasi di `docker-compose.yaml` agar Airflow dapat mendeteksi file `etl_ecommerce_dag.py` Anda.
-
-
-
-Apakah ada bagian dari logika *Transform* atau *Error Handling* yang ingin Anda pertajam teknisnya?
