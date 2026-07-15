@@ -62,6 +62,6 @@ Pipeline ini memproses data transaksi e-commerce harian untuk kebutuhan pelapora
 
 * **Cara tahu pipeline sukses**: Melalui UI Apache Airflow (port 8080) dengan memantau status `Success` (berwarna hijau) pada setiap task di dalam DAG `etl_ecommerce_daily`.
 
-![Proses Automatisasi Sukses](images/Screenshot 2026-07-16 035432.png)
+![Proses Automatisasi Sukses](images/Screenshot2026-07-16035432.png)
 
 * **Cara tahu data berkualitas**: Melalui fungsi `validate_quality` yang bertindak sebagai *gatekeeper*. Jika validasi gagal, pipeline akan terhenti dan notifikasi akan dikirim untuk mencegah data rusak masuk ke Warehouse.
