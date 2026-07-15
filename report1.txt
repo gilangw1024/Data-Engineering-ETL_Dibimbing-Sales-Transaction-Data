@@ -1,0 +1,35 @@
+==================================================
+STARTING ETL PIPELINE
+==================================================
+
+[2026-07-16 02:54:29] [extract] [RUNNING] Attempt 1/3
+[2026-07-16 02:54:29] [extract] [INFO] Loaded 130 baris dari raw_orders.csv
+[2026-07-16 02:54:29] [extract] [SUCCESS] Selesai dalam 0.01s
+[2026-07-16 02:54:29] [transform] [RUNNING] Attempt 1/3
+[2026-07-16 02:54:29] [transform] [INFO] Hapus 10 duplikat
+[2026-07-16 02:54:29] [transform] [INFO] Hapus 5 harga negatif
+[2026-07-16 02:54:29] [transform] [INFO] Output: 110 baris bersih
+[2026-07-16 02:54:29] [transform] [SUCCESS] Selesai dalam 0.05s
+[2026-07-16 02:54:29] [validate] [RUNNING] Attempt 1/3
+[2026-07-16 02:54:29] [validate] [INFO] Semua 4 check PASSED
+[2026-07-16 02:54:29] [validate] [SUCCESS] Selesai dalam 0.01s
+[2026-07-16 02:54:29] [load] [RUNNING] Attempt 1/3
+[2026-07-16 02:54:29] [load] [INFO] Data disimpan ke orders_clean.csv (110 baris)
+[2026-07-16 02:54:29] [load] [SUCCESS] Selesai dalam 0.05s
+[2026-07-16 02:54:29] [report] [RUNNING] Attempt 1/3
+[2026-07-16 02:54:29] [report] [INFO] Report disimpan ke summary_report.csv
+[2026-07-16 02:54:29] [report] [SUCCESS] Selesai dalam 0.05s
+[2026-07-16 02:54:29] [notify] [RUNNING] Attempt 1/3
+
+==================================================
+PIPELINE NOTIFICATION
+==================================================
+Status: [OK] SUCCESS
+Waktu: 2026-07-16 02:54:29
+Total orders diproses: 110
+Total revenue: Rp 562,530,000
+Output: orders_clean.csv, summary_report.csv
+==================================================
+[2026-07-16 02:54:29] [notify] [INFO] Notifikasi terkirim
+[2026-07-16 02:54:29] [notify] [SUCCESS] Selesai dalam 0.0s
+[2026-07-16 02:54:29] [pipeline] [COMPLETED] Total waktu: 0.2s
