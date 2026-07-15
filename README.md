@@ -65,3 +65,5 @@ Pipeline ini memproses data transaksi e-commerce harian untuk kebutuhan pelapora
 ![Proses Automatisasi Sukses](images/Screenshot2026-07-16035432.png)
 
 * **Cara tahu data berkualitas**: Melalui fungsi `validate_quality` yang bertindak sebagai *gatekeeper*. Jika validasi gagal, pipeline akan terhenti dan notifikasi akan dikirim untuk mencegah data rusak masuk ke Warehouse.
+
+![Proses Automatisasi Sukses](images/Screenshot2026-07-16042700.png)
